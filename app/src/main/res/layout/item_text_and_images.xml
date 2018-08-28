@@ -2,25 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+              android:layout_margin="10dp"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/textview"
+        android:textColor="#000000"
+        android:textSize="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="10dp"
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never">
 
     </android.support.v7.widget.RecyclerView>
-
-    <ImageView
-        android:id="@+id/imageview"
-        android:layout_width="wrap_content"
-        android:layout_height="180dp"
-        android:scaleType="centerCrop" />
 
 </LinearLayout>

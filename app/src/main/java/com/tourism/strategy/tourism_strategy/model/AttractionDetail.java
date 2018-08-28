@@ -2,7 +2,7 @@ package com.tourism.strategy.tourism_strategy.model;
 
 import java.util.List;
 
-public class AttractionDetail {
+public class AttractionDetail extends MultipleItem{
     private int id;
     private String name_zh_cn;
     private String name_en;

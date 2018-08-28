@@ -2,7 +2,7 @@ package com.tourism.strategy.tourism_strategy.model;
 
 import java.util.List;
 
-public class AttractionContent{
+public class AttractionContent extends MultipleItem{
     private String description;
     private List<Note> notes;
 
