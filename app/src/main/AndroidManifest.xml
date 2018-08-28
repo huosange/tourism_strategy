@@ -18,6 +18,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".CountryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TravelListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AttractionDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

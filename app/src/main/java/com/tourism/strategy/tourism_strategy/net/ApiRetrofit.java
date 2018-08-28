@@ -1,6 +1,9 @@
 package com.tourism.strategy.tourism_strategy.net;
 
+import com.tourism.strategy.tourism_strategy.model.Attraction;
+import com.tourism.strategy.tourism_strategy.model.AttractionDetail;
 import com.tourism.strategy.tourism_strategy.model.Category;
+import com.tourism.strategy.tourism_strategy.model.Zone;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -47,6 +50,18 @@ public class ApiRetrofit {
 
     public Observable<List<Category>> getAreas(){
         return myApi.getAreas();
+    }
+
+    public Observable<List<Zone>> getCountry(int cid){
+        return myApi.getCountry(cid);
+    }
+
+    public Observable<List<Attraction>> getAttractions(int cid, int page){
+        return myApi.getAttractions(cid,page);
+    }
+
+    public Observable<AttractionDetail> getAttraction(int attractionId){
+        return myApi.getAttraction(attractionId);
     }
 
 }
