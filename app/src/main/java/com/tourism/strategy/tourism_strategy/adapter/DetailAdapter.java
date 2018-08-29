@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,7 +25,6 @@ import com.tourism.strategy.tourism_strategy.TourismActivity;
 import com.tourism.strategy.tourism_strategy.model.AttractionContent;
 import com.tourism.strategy.tourism_strategy.model.AttractionDetail;
 import com.tourism.strategy.tourism_strategy.model.HtmlTextItem;
-import com.tourism.strategy.tourism_strategy.model.ItemAttraction;
 import com.tourism.strategy.tourism_strategy.model.ItemAttractionList;
 import com.tourism.strategy.tourism_strategy.model.MultipleItem;
 
@@ -49,7 +49,7 @@ public class DetailAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseV
         switch (helper.getItemViewType()) {
             case MultipleItem.TEXT:
                 HtmlTextItem htmlTextItem = (HtmlTextItem) item;
-                helper.setText(R.id.textview, Html.fromHtml(htmlTextItem.getHtmlText()));
+                helper.setText(R.id.textview, Html.fromHtml(TextUtils.isEmpty(htmlTextItem.getHtmlText())?"":htmlTextItem.getHtmlText()));
                 break;
             case MultipleItem.TEXT_AND_IMAGES:
                 AttractionContent ac = (AttractionContent) item;
