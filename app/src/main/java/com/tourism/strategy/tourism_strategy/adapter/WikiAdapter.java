@@ -1,10 +1,11 @@
 package com.tourism.strategy.tourism_strategy.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tourism.strategy.tourism_strategy.R;
@@ -25,10 +26,19 @@ public class WikiAdapter extends BaseQuickAdapter<Wiki, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Wiki item) {
         helper.setText(R.id.title, StringUtils.getTitleByType(item.getCategory_type()));
-        TextView textview = helper.getView(R.id.title);
+        ImageView imageview=helper.getView(R.id.imageview);
         int icon = StringUtils.getIconByType(item.getCategory_type());
         if (icon > 0) {
-            textview.setCompoundDrawables(context.getResources().getDrawable(icon), null, null, null);
+            imageview.setBackgroundResource(icon);
         }
+        RecyclerView recyclerview=helper.getView(R.id.recyclerview);
+        recyclerview.setLayoutManager(new GridLayoutManager(context,2));
+        ChildAdapter adapter=new ChildAdapter(context,item.getPages());
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            }
+        });
+        recyclerview.setAdapter(adapter);
     }
 }

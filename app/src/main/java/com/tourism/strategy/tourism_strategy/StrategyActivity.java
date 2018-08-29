@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.tourism.strategy.tourism_strategy.adapter.WikiAdapter;
 import com.tourism.strategy.tourism_strategy.model.Wiki;
@@ -42,7 +41,12 @@ public class StrategyActivity extends BaseActivity {
                 .subscribe(new Consumer<List<Wiki>>() {
                     @Override
                     public void accept(List<Wiki> wikis) throws Exception {
-                        list.addAll(wikis);
+                        for(Wiki wk:wikis){
+                            int type=wk.getCategory_type();
+                            if(type==0||type==1||type==2||type==3||type==7||type==8){
+                                list.add(wk);
+                            }
+                        }
                         adapter.notifyDataSetChanged();
                     }
                 });
