@@ -28,6 +28,12 @@
         <activity
             android:name=".AttractionDetailActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".AlbumActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TourismActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

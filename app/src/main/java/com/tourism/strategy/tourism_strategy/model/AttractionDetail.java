@@ -11,6 +11,25 @@ public class AttractionDetail extends MultipleItem{
     private int photos_count;
     private int attraction_trips_count;
     private List<AttractionTags> attraction_trip_tags;
+    private List<ItemAttraction> attractions;
+
+    public List<ItemAttraction> getAttractions() {
+        return attractions;
+    }
+
+    public void setAttractions(List<ItemAttraction> attractions) {
+        this.attractions = attractions;
+    }
+
+    public List<ItemAttraction> getHotels() {
+        return hotels;
+    }
+
+    public void setHotels(List<ItemAttraction> hotels) {
+        this.hotels = hotels;
+    }
+
+    private List<ItemAttraction> hotels;
 
     public List<AttractionTags> getAttraction_trip_tags() {
         return attraction_trip_tags;

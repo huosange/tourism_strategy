@@ -1,7 +1,9 @@
 package com.tourism.strategy.tourism_strategy.net;
 
+import com.tourism.strategy.tourism_strategy.model.Album;
 import com.tourism.strategy.tourism_strategy.model.Attraction;
 import com.tourism.strategy.tourism_strategy.model.AttractionDetail;
+import com.tourism.strategy.tourism_strategy.model.AttractionTrips;
 import com.tourism.strategy.tourism_strategy.model.Category;
 import com.tourism.strategy.tourism_strategy.model.Zone;
 
@@ -28,4 +30,10 @@ public interface MyApi {
 
     @GET("api/attractions/{attractionId}.json ")
     Observable<AttractionDetail> getAttraction(@Path("attractionId") int attractionId);
+
+    @GET("api/attractions/photos/{attractionId}.json")
+    Observable<List<Album>> getAlbum(@Path("attractionId") int attractionId, @Query("page") int page);
+
+    @GET("api/attractions/{attractionId}.json?attraction_trips=true")
+    Observable<AttractionTrips> getTourism(@Path("attractionId") int attractionId, @Query("page") int page);
 }

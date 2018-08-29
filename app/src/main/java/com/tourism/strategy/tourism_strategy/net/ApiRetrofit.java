@@ -1,7 +1,9 @@
 package com.tourism.strategy.tourism_strategy.net;
 
+import com.tourism.strategy.tourism_strategy.model.Album;
 import com.tourism.strategy.tourism_strategy.model.Attraction;
 import com.tourism.strategy.tourism_strategy.model.AttractionDetail;
+import com.tourism.strategy.tourism_strategy.model.AttractionTrips;
 import com.tourism.strategy.tourism_strategy.model.Category;
 import com.tourism.strategy.tourism_strategy.model.Zone;
 
@@ -62,6 +64,14 @@ public class ApiRetrofit {
 
     public Observable<AttractionDetail> getAttraction(int attractionId){
         return myApi.getAttraction(attractionId);
+    }
+
+    public Observable<List<Album>> getAlbum(int attractionId, int page){
+        return myApi.getAlbum(attractionId,page);
+    }
+
+    public Observable<AttractionTrips> getTourism(int attractionId, int page){
+        return myApi.getTourism(attractionId,page);
     }
 
 }
