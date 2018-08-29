@@ -10,7 +10,9 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tourism.strategy.tourism_strategy.R;
+import com.tourism.strategy.tourism_strategy.StrategyActivity;
 import com.tourism.strategy.tourism_strategy.TravelListActivity;
+import com.tourism.strategy.tourism_strategy.TripActivity;
 import com.tourism.strategy.tourism_strategy.model.Zone;
 
 import java.util.List;
@@ -37,6 +39,22 @@ public class ZoneAdapter extends BaseQuickAdapter<Zone, BaseViewHolder>{
             public void onClick(View v) {
                 Intent intent = new Intent(context, TravelListActivity.class);
                 intent.putExtra("cid",item.getId());
+                context.startActivity(intent);
+            }
+        });
+        trip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context, TripActivity.class);
+                intent.putExtra("cid",item.getId());
+                context.startActivity(intent);
+            }
+        });
+        strategy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context, StrategyActivity.class);
+                intent.putExtra("id",item.getId());
                 context.startActivity(intent);
             }
         });

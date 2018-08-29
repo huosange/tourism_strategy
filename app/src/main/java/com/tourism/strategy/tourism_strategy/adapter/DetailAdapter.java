@@ -28,6 +28,7 @@ import com.tourism.strategy.tourism_strategy.model.ItemAttraction;
 import com.tourism.strategy.tourism_strategy.model.ItemAttractionList;
 import com.tourism.strategy.tourism_strategy.model.MultipleItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DetailAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> {
@@ -54,10 +55,17 @@ public class DetailAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseV
                 AttractionContent ac = (AttractionContent) item;
                 String description = ac.getDescription();
                 SpannableString spannableString = new SpannableString(description);
-                StyleSpan bold = new StyleSpan(Typeface.BOLD);
-                int start = spannableString.toString().indexOf("#");
-                int end = spannableString.toString().lastIndexOf("#");
-                spannableString.setSpan(bold, start + 1, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
+                List<Integer> indexs = new ArrayList<>();
+                for (int i = 0; i < spannableString.length(); i++) {
+                    String temp = spannableString.charAt(i) + "";
+                    if (temp.equals("#")) {
+                        indexs.add(i);
+                    }
+                }
+                for (int j = 0; j < indexs.size(); j = j + 2) {
+                    spannableString.setSpan(new StyleSpan(Typeface.BOLD), indexs.get(j) + 1, indexs.get(j + 1), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                }
                 helper.setText(R.id.textview, spannableString);
 
                 //给recyclerview设置数据源

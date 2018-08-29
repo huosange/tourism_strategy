@@ -5,12 +5,16 @@ import com.tourism.strategy.tourism_strategy.model.Attraction;
 import com.tourism.strategy.tourism_strategy.model.AttractionDetail;
 import com.tourism.strategy.tourism_strategy.model.AttractionTrips;
 import com.tourism.strategy.tourism_strategy.model.Category;
+import com.tourism.strategy.tourism_strategy.model.Plan;
+import com.tourism.strategy.tourism_strategy.model.PlanDetail;
+import com.tourism.strategy.tourism_strategy.model.Wiki;
 import com.tourism.strategy.tourism_strategy.model.Zone;
 
 import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -36,4 +40,13 @@ public interface MyApi {
 
     @GET("api/attractions/{attractionId}.json?attraction_trips=true")
     Observable<AttractionTrips> getTourism(@Path("attractionId") int attractionId, @Query("page") int page);
+
+    @GET("api/destinations/plans/{cid}.json")
+    Observable<List<Plan>> getPlans(@Path("cid") int cid, @Query("page") int page);
+
+    @GET("api/plans/{planId}.json")
+    Observable<PlanDetail> getPlanDetail(@Path("planId") int planId);
+
+    @GET("api/wiki/destinations/{id}.json")
+    Observable<List<Wiki>> getWiki(@Path("id") int id);
 }

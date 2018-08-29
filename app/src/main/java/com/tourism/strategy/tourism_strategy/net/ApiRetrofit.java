@@ -5,6 +5,9 @@ import com.tourism.strategy.tourism_strategy.model.Attraction;
 import com.tourism.strategy.tourism_strategy.model.AttractionDetail;
 import com.tourism.strategy.tourism_strategy.model.AttractionTrips;
 import com.tourism.strategy.tourism_strategy.model.Category;
+import com.tourism.strategy.tourism_strategy.model.Plan;
+import com.tourism.strategy.tourism_strategy.model.PlanDetail;
+import com.tourism.strategy.tourism_strategy.model.Wiki;
 import com.tourism.strategy.tourism_strategy.model.Zone;
 
 import java.util.List;
@@ -72,6 +75,18 @@ public class ApiRetrofit {
 
     public Observable<AttractionTrips> getTourism(int attractionId, int page){
         return myApi.getTourism(attractionId,page);
+    }
+
+    public Observable<List<Plan>> getPlans(int cid, int page){
+        return myApi.getPlans(cid,page);
+    }
+
+    public Observable<PlanDetail> getPlanDetail(int planId){
+        return myApi.getPlanDetail(planId);
+    }
+
+    public Observable<List<Wiki>> getWiki(int id){
+        return myApi.getWiki(id);
     }
 
 }
