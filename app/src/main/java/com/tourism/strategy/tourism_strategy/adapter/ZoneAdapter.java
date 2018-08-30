@@ -39,6 +39,7 @@ public class ZoneAdapter extends BaseQuickAdapter<Zone, BaseViewHolder>{
             public void onClick(View v) {
                 Intent intent = new Intent(context, TravelListActivity.class);
                 intent.putExtra("cid",item.getId());
+                intent.putExtra("poi_count",item.getPoi_count());
                 context.startActivity(intent);
             }
         });
@@ -47,6 +48,7 @@ public class ZoneAdapter extends BaseQuickAdapter<Zone, BaseViewHolder>{
             public void onClick(View v) {
                 Intent intent=new Intent(context, TripActivity.class);
                 intent.putExtra("cid",item.getId());
+                intent.putExtra("plans_count",item.getPlans_count());
                 context.startActivity(intent);
             }
         });

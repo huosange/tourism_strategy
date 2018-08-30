@@ -32,12 +32,14 @@ public class CountryActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country);
         ButterKnife.bind(this);
+        setTitle(getIntent().getStringExtra("name"));
 
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ZoneAdapter(this, list);
         recyclerview.setAdapter(adapter);
 
         cid = getIntent().getIntExtra("cid", 0);
+        if(NetUtils.isNetworkConnected(this)){
         ApiRetrofit.getInstance().getCountry(cid)
                 .compose(NetUtils.<List<Zone>>io_main())
                 .subscribe(new Consumer<List<Zone>>() {
@@ -46,6 +48,6 @@ public class CountryActivity extends BaseActivity {
                         list.addAll(zones);
                         adapter.notifyDataSetChanged();
                     }
-                });
+                });}
     }
 }

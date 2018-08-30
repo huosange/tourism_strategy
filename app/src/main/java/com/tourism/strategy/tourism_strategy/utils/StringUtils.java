@@ -27,17 +27,17 @@ public class StringUtils {
     public static int getIconByType(int type){
         switch (type) {
             case 0:
-                return R.mipmap.icon_gailan;
+                return R.mipmap.sh_gailan;
             case 1:
-                return R.mipmap.icon_chuxing;
+                return R.mipmap.sh_chuxingxuzhi;
             case 2:
-                return R.mipmap.icon_daoda;
+                return R.mipmap.sh_ruhedaoda;
             case 3:
-                return R.mipmap.icon_jiaotong;
+                return R.mipmap.sh_dangdijiaotong;
             case 7:
-                return R.mipmap.icon_meishi;
+                return R.mipmap.sh_meishi;
             case 8:
-                return R.mipmap.icon_gouwu;
+                return R.mipmap.sh_gouwu;
             default:
                 return 0;
 

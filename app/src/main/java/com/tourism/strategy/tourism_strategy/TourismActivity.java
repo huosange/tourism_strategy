@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tourism.strategy.tourism_strategy.adapter.TourismAdapter;
 import com.tourism.strategy.tourism_strategy.model.AttractionTrips;
 import com.tourism.strategy.tourism_strategy.net.ApiRetrofit;
@@ -26,6 +27,9 @@ public class TourismActivity extends BaseActivity {
     private int attractionId;
     private List<AttractionTrips.Trip> list = new ArrayList<>();
     private TourismAdapter adapter;
+    private int count;
+    private int currentPage = 1;
+    private int totalPage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,19 +37,38 @@ public class TourismActivity extends BaseActivity {
         setContentView(R.layout.activity_tourism);
         ButterKnife.bind(this);
 
+        count = getIntent().getIntExtra("count", 0);
+        totalPage = count / 10 + (count % 10 == 0 ? 0 : 1);
         attractionId = getIntent().getIntExtra("attractionId", 0);
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         adapter = new TourismAdapter(this, list);
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                if (currentPage >= totalPage) {
+                    adapter.loadMoreEnd();
+                } else {
+                    currentPage++;
+                    load(currentPage);
+                }
+            }
+        }, recyclerview);
         recyclerview.setAdapter(adapter);
+        load(currentPage);
+    }
 
-        ApiRetrofit.getInstance().getTourism(attractionId, 1)
-                .compose(NetUtils.<AttractionTrips>io_main())
-                .subscribe(new Consumer<AttractionTrips>() {
-                    @Override
-                    public void accept(AttractionTrips attractionTrips) throws Exception {
-                        list.addAll(attractionTrips.getAttraction_trips());
-                        adapter.notifyDataSetChanged();
-                    }
-                });
+    private void load(int page) {
+        if (NetUtils.isNetworkConnected(this)) {
+            ApiRetrofit.getInstance().getTourism(attractionId, page)
+                    .compose(NetUtils.<AttractionTrips>io_main())
+                    .subscribe(new Consumer<AttractionTrips>() {
+                        @Override
+                        public void accept(AttractionTrips attractionTrips) throws Exception {
+                            list.addAll(attractionTrips.getAttraction_trips());
+                            adapter.notifyDataSetChanged();
+                            adapter.loadMoreComplete();
+                        }
+                    });
+        }
     }
 }

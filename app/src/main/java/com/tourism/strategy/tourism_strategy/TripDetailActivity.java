@@ -32,12 +32,14 @@ public class TripDetailActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plan_detail);
         ButterKnife.bind(this);
+        setTitle("行程");
 
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         adapter=new PlanDayAdapter(this,list);
         recyclerview.setAdapter(adapter);
 
         planId=getIntent().getIntExtra("planId",0);
+        if(NetUtils.isNetworkConnected(this)){
         ApiRetrofit.getInstance().getPlanDetail(planId)
                 .compose(NetUtils.<PlanDetail>io_main())
                 .subscribe(new Consumer<PlanDetail>() {
@@ -46,6 +48,6 @@ public class TripDetailActivity extends BaseActivity{
                         list.addAll(planDetail.getPlan_days());
                         adapter.notifyDataSetChanged();
                     }
-                });
+                });}
     }
 }

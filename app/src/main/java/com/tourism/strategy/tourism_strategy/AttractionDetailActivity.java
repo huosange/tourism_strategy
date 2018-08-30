@@ -37,10 +37,13 @@ public class AttractionDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attraction_detail);
         ButterKnife.bind(this);
+        setTitle(getIntent().getStringExtra("name"));
+
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         adapter = new DetailAdapter(this, list);
         recyclerview.setAdapter(adapter);
         attractionId = getIntent().getIntExtra("attractionId", 0);
+        if(NetUtils.isNetworkConnected(this)){
         ApiRetrofit.getInstance().getAttraction(attractionId)
                 .compose(NetUtils.<AttractionDetail>io_main())
                 .subscribe(new Consumer<AttractionDetail>() {
@@ -74,6 +77,6 @@ public class AttractionDetailActivity extends BaseActivity {
                         list.add(nearHotels);
                         adapter.notifyDataSetChanged();
                     }
-                });
+                });}
     }
 }

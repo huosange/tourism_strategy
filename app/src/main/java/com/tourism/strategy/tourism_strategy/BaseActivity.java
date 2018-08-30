@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 
@@ -16,6 +17,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private LayoutInflater inflater;
     private LinearLayout root;
+    private TextView title;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,6 +26,11 @@ public class BaseActivity extends AppCompatActivity {
         super.setContentView(R.layout.activity_base);
         ImmersionBar.with(this).statusBarColor(R.color.status_bar_color).init();
         root = findViewById(R.id.root);
+        title=findViewById(R.id.title);
+    }
+
+    public void setTitle(String t){
+        title.setText(t);
     }
 
     @Override

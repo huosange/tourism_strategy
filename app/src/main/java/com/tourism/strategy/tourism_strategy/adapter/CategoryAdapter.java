@@ -48,6 +48,7 @@ public class CategoryAdapter extends BaseQuickAdapter<Category,BaseViewHolder>{
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent=new Intent(context, CountryActivity.class);
+                intent.putExtra("name",countries.get(position).getName_zh_cn());
                 intent.putExtra("cid",countries.get(position).getId());
                 context.startActivity(intent);
             }

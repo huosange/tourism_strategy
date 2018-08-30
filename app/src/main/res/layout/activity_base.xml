@@ -13,10 +13,10 @@
         android:background="#FF0C80E0">
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="旅游攻略"
             android:textColor="#ffffff"
             android:textSize="20dp" />
     </RelativeLayout>

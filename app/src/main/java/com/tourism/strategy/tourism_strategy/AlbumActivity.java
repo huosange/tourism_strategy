@@ -59,6 +59,7 @@ public class AlbumActivity extends BaseActivity {
     }
 
     private void load(int page) {
+        if(NetUtils.isNetworkConnected(this)){
         ApiRetrofit.getInstance().getAlbum(attractionId, page)
                 .compose(NetUtils.<List<Album>>io_main())
                 .subscribe(new Consumer<List<Album>>() {
@@ -68,6 +69,6 @@ public class AlbumActivity extends BaseActivity {
                         adapter.notifyDataSetChanged();
                         adapter.loadMoreComplete();
                     }
-                });
+                });}
     }
 }

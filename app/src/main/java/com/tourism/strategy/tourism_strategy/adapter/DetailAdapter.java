@@ -56,7 +56,7 @@ public class DetailAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseV
                 String description = ac.getDescription();
                 SpannableString spannableString = new SpannableString(description);
 
-                List<Integer> indexs = new ArrayList<>();
+                final List<Integer> indexs = new ArrayList<>();
                 for (int i = 0; i < spannableString.length(); i++) {
                     String temp = spannableString.charAt(i) + "";
                     if (temp.equals("#")) {
@@ -95,6 +95,7 @@ public class DetailAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseV
                     public void onClick(View v) {
                         Intent intent = new Intent(context, TourismActivity.class);
                         intent.putExtra("attractionId", ad.getId());
+                        intent.putExtra("count",ad.getAttraction_trips_count());
                         context.startActivity(intent);
                     }
                 });

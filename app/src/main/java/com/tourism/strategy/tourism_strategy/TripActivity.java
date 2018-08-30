@@ -30,6 +30,9 @@ public class TripActivity extends BaseActivity {
     public RecyclerView recyclerview;
 
     private int cid;
+    private int plans_count;
+    private int totalPage;
+    private int currentPage = 1;
     private List<Plan> list = new ArrayList<>();
     private PlanAdapter adapter;
 
@@ -38,27 +41,49 @@ public class TripActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip);
         ButterKnife.bind(this);
+        setTitle("行程");
 
-        cid=getIntent().getIntExtra("cid",0);
+        cid = getIntent().getIntExtra("cid", 0);
+        plans_count = getIntent().getIntExtra("plans_count", 0);
+        totalPage = plans_count / 10 + (plans_count % 10 == 0 ? 0 : 1);
+
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         adapter = new PlanAdapter(this, list);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent=new Intent(TripActivity.this,TripDetailActivity.class);
-                intent.putExtra("planId",list.get(position).getId());
+                Intent intent = new Intent(TripActivity.this, TripDetailActivity.class);
+                intent.putExtra("planId", list.get(position).getId());
                 startActivity(intent);
             }
         });
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                if (currentPage >= totalPage) {
+                    adapter.loadMoreEnd();
+                } else {
+                    currentPage++;
+                    load(currentPage);
+                }
+            }
+        }, recyclerview);
         recyclerview.setAdapter(adapter);
-        ApiRetrofit.getInstance().getPlans(cid, 1)
-                .compose(NetUtils.<List<Plan>>io_main())
-                .subscribe(new Consumer<List<Plan>>() {
-                    @Override
-                    public void accept(List<Plan> plans) throws Exception {
-                        list.addAll(plans);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
+        load(currentPage);
+    }
+
+    private void load(int page) {
+        if (NetUtils.isNetworkConnected(this)) {
+            ApiRetrofit.getInstance().getPlans(cid, page)
+                    .compose(NetUtils.<List<Plan>>io_main())
+                    .subscribe(new Consumer<List<Plan>>() {
+                        @Override
+                        public void accept(List<Plan> plans) throws Exception {
+                            list.addAll(plans);
+                            adapter.notifyDataSetChanged();
+                            adapter.loadMoreComplete();
+                        }
+                    });
+        }
     }
 }

@@ -29,34 +29,61 @@ public class TravelListActivity extends BaseActivity {
     private List<Attraction> list = new ArrayList<>();
     private AttractionAdapter adapter;
     private int cid;
+    private int poi_count;
+    private int totalPage;
+    private int currentPage = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travel_list);
         ButterKnife.bind(this);
+        setTitle("旅行地");
 
-        cid=getIntent().getIntExtra("cid",0);
+        //景点的个数
+        poi_count = getIntent().getIntExtra("poi_count", 0);
+        totalPage = poi_count / 10 + (poi_count % 10 == 0 ? 0 : 1);
+
+
+        cid = getIntent().getIntExtra("cid", 0);
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         adapter = new AttractionAdapter(this, list);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent=new Intent(TravelListActivity.this,AttractionDetailActivity.class);
-                intent.putExtra("attractionId",list.get(position).getId());
+                Intent intent = new Intent(TravelListActivity.this, AttractionDetailActivity.class);
+                intent.putExtra("attractionId", list.get(position).getId());
+                intent.putExtra("name", list.get(position).getName());
                 startActivity(intent);
             }
         });
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                if (currentPage >= totalPage) {
+                    adapter.loadMoreEnd();
+                } else {
+                    currentPage++;
+                    load(currentPage);
+                }
+            }
+        }, recyclerview);
         recyclerview.setAdapter(adapter);
+        load(currentPage);
+    }
 
-        ApiRetrofit.getInstance().getAttractions(cid, 1)
-                .compose(NetUtils.<List<Attraction>>io_main())
-                .subscribe(new Consumer<List<Attraction>>() {
-                    @Override
-                    public void accept(List<Attraction> attractions) throws Exception {
-                        list.addAll(attractions);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
+    private void load(int page) {
+        if (NetUtils.isNetworkConnected(this)) {
+            ApiRetrofit.getInstance().getAttractions(cid, page)
+                    .compose(NetUtils.<List<Attraction>>io_main())
+                    .subscribe(new Consumer<List<Attraction>>() {
+                        @Override
+                        public void accept(List<Attraction> attractions) throws Exception {
+                            list.addAll(attractions);
+                            adapter.notifyDataSetChanged();
+                            adapter.loadMoreComplete();
+                        }
+                    });
+        }
     }
 }

@@ -30,11 +30,13 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        setTitle("旅游攻略");
 
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         final CategoryAdapter adapter = new CategoryAdapter(this, categoryList);
         recyclerview.setAdapter(adapter);
 
+        if(NetUtils.isNetworkConnected(this)){
         ApiRetrofit.getInstance().getAreas()
                 .compose(NetUtils.<List<Category>>io_main())
                 .subscribe(new Consumer<List<Category>>() {
@@ -45,6 +47,6 @@ public class MainActivity extends BaseActivity {
                         }
                         adapter.notifyDataSetChanged();
                     }
-                });
+                });}
     }
 }

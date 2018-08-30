@@ -38,10 +38,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawablePadding="10dp"
-                    android:drawableTop="@mipmap/icon_strategy"
+                    android:drawableTop="@mipmap/sh_gonglue"
                     android:gravity="center_horizontal"
                     android:text="攻略"
-                    android:textColor="#606060"
+                    android:textColor="#333333"
                     android:textSize="15dp" />
 
                 <TextView
@@ -50,10 +50,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawablePadding="10dp"
-                    android:drawableTop="@mipmap/icon_trip"
+                    android:drawableTop="@mipmap/sh_xingcheng"
                     android:gravity="center_horizontal"
                     android:text="行程"
-                    android:textColor="#606060"
+                    android:textColor="#333333"
                     android:textSize="15dp" />
 
                 <TextView
@@ -62,10 +62,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawablePadding="10dp"
-                    android:drawableTop="@mipmap/icon_travel"
+                    android:drawableTop="@mipmap/sh_lvxingdi"
                     android:gravity="center_horizontal"
                     android:text="旅行地"
-                    android:textColor="#606060"
+                    android:textColor="#333333"
                     android:textSize="15dp" />
             </LinearLayout>
         </LinearLayout>

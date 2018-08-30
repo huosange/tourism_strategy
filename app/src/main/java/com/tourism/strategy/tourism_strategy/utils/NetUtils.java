@@ -1,5 +1,9 @@
 package com.tourism.strategy.tourism_strategy.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
@@ -17,5 +21,14 @@ public class NetUtils {
                         .observeOn(AndroidSchedulers.mainThread());
             }
         };
+    }
+
+    public static boolean isNetworkConnected(Context context){
+        ConnectivityManager connectivityManager= (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo=connectivityManager.getActiveNetworkInfo();
+        if(networkInfo!=null){
+            return networkInfo.isAvailable();
+        }
+        return false;
     }
 }

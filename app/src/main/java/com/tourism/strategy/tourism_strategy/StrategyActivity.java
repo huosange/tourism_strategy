@@ -31,24 +31,29 @@ public class StrategyActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_strategy);
         ButterKnife.bind(this);
+        setTitle("攻略");
 
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         adapter = new WikiAdapter(this, list);
         recyclerview.setAdapter(adapter);
         id = getIntent().getIntExtra("id", 0);
-        ApiRetrofit.getInstance().getWiki(id)
-                .compose(NetUtils.<List<Wiki>>io_main())
-                .subscribe(new Consumer<List<Wiki>>() {
-                    @Override
-                    public void accept(List<Wiki> wikis) throws Exception {
-                        for(Wiki wk:wikis){
-                            int type=wk.getCategory_type();
-                            if(type==0||type==1||type==2||type==3||type==7||type==8){
-                                list.add(wk);
+
+        //判断网络是否可用
+        if (NetUtils.isNetworkConnected(this)) {
+            ApiRetrofit.getInstance().getWiki(id)
+                    .compose(NetUtils.<List<Wiki>>io_main())
+                    .subscribe(new Consumer<List<Wiki>>() {
+                        @Override
+                        public void accept(List<Wiki> wikis) throws Exception {
+                            for (Wiki wk : wikis) {
+                                int type = wk.getCategory_type();
+                                if (type == 0 || type == 1 || type == 2 || type == 3 || type == 7 || type == 8) {
+                                    list.add(wk);
+                                }
                             }
+                            adapter.notifyDataSetChanged();
                         }
-                        adapter.notifyDataSetChanged();
-                    }
-                });
+                    });
+        }
     }
 }
