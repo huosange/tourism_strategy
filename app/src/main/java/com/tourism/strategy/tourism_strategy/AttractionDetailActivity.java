@@ -38,6 +38,7 @@ public class AttractionDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_attraction_detail);
         ButterKnife.bind(this);
         setTitle(getIntent().getStringExtra("name"));
+        showDialog();
 
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         adapter = new DetailAdapter(this, list);
@@ -76,6 +77,7 @@ public class AttractionDetailActivity extends BaseActivity {
                         nearHotels.setItemType(MultipleItem.NEAR);
                         list.add(nearHotels);
                         adapter.notifyDataSetChanged();
+                        hideDialog();
                     }
                 });}
     }

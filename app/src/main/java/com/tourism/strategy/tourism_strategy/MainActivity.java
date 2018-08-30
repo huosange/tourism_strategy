@@ -32,21 +32,24 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
         setTitle("旅游攻略");
 
+        showDialog();
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         final CategoryAdapter adapter = new CategoryAdapter(this, categoryList);
         recyclerview.setAdapter(adapter);
 
-        if(NetUtils.isNetworkConnected(this)){
-        ApiRetrofit.getInstance().getAreas()
-                .compose(NetUtils.<List<Category>>io_main())
-                .subscribe(new Consumer<List<Category>>() {
-                    @Override
-                    public void accept(List<Category> categories) throws Exception {
-                        if (categories != null) {
-                            categoryList.addAll(categories);
+        if (NetUtils.isNetworkConnected(this)) {
+            ApiRetrofit.getInstance().getAreas()
+                    .compose(NetUtils.<List<Category>>io_main())
+                    .subscribe(new Consumer<List<Category>>() {
+                        @Override
+                        public void accept(List<Category> categories) throws Exception {
+                            if (categories != null) {
+                                categoryList.addAll(categories);
+                            }
+                            adapter.notifyDataSetChanged();
+                            hideDialog();
                         }
-                        adapter.notifyDataSetChanged();
-                    }
-                });}
+                    });
+        }
     }
 }

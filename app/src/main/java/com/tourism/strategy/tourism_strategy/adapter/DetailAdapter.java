@@ -49,7 +49,7 @@ public class DetailAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseV
         switch (helper.getItemViewType()) {
             case MultipleItem.TEXT:
                 HtmlTextItem htmlTextItem = (HtmlTextItem) item;
-                helper.setText(R.id.textview, Html.fromHtml(TextUtils.isEmpty(htmlTextItem.getHtmlText())?"":htmlTextItem.getHtmlText()));
+                helper.setText(R.id.textview, Html.fromHtml(TextUtils.isEmpty(htmlTextItem.getHtmlText()) ? "" : htmlTextItem.getHtmlText()));
                 break;
             case MultipleItem.TEXT_AND_IMAGES:
                 AttractionContent ac = (AttractionContent) item;
@@ -95,7 +95,7 @@ public class DetailAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseV
                     public void onClick(View v) {
                         Intent intent = new Intent(context, TourismActivity.class);
                         intent.putExtra("attractionId", ad.getId());
-                        intent.putExtra("count",ad.getAttraction_trips_count());
+                        intent.putExtra("count", ad.getAttraction_trips_count());
                         context.startActivity(intent);
                     }
                 });
@@ -117,6 +117,7 @@ public class DetailAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseV
                         if (itemAttractionList.getTitle().equals("附近旅行地")) {
                             Intent intent = new Intent(context, AttractionDetailActivity.class);
                             intent.putExtra("attractionId", itemAttractionList.getList().get(position).getId());
+                            intent.putExtra("name", itemAttractionList.getList().get(position).getName_zh_cn());
                             context.startActivity(intent);
                         } else {
                             return;

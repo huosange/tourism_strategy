@@ -33,6 +33,7 @@ public class TripDetailActivity extends BaseActivity{
         setContentView(R.layout.activity_plan_detail);
         ButterKnife.bind(this);
         setTitle("行程");
+        showDialog();
 
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         adapter=new PlanDayAdapter(this,list);
@@ -47,6 +48,7 @@ public class TripDetailActivity extends BaseActivity{
                     public void accept(PlanDetail planDetail) throws Exception {
                         list.addAll(planDetail.getPlan_days());
                         adapter.notifyDataSetChanged();
+                        hideDialog();
                     }
                 });}
     }

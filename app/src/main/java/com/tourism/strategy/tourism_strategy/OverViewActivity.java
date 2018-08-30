@@ -32,11 +32,13 @@ public class OverViewActivity extends BaseActivity {
         setContentView(R.layout.activity_overview);
         ButterKnife.bind(this);
         setTitle(getIntent().getStringExtra("name"));
+        showDialog();
 
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         page = (Wiki.Page) getIntent().getSerializableExtra("page");
         list.addAll(page.getChildren());
         adapter = new OverViewAdapter(this, list);
         recyclerview.setAdapter(adapter);
+        hideDialog();
     }
 }

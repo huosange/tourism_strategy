@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -39,6 +40,7 @@ public class TravelListActivity extends BaseActivity {
         setContentView(R.layout.activity_travel_list);
         ButterKnife.bind(this);
         setTitle("旅行地");
+        showDialog();
 
         //景点的个数
         poi_count = getIntent().getIntExtra("poi_count", 0);
@@ -57,6 +59,7 @@ public class TravelListActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        adapter.setEmptyView(LayoutInflater.from(this).inflate(R.layout.view_empty, null));
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -82,6 +85,8 @@ public class TravelListActivity extends BaseActivity {
                             list.addAll(attractions);
                             adapter.notifyDataSetChanged();
                             adapter.loadMoreComplete();
+                            hideDialog();
+                            recyclerview.setVisibility(View.VISIBLE);
                         }
                     });
         }

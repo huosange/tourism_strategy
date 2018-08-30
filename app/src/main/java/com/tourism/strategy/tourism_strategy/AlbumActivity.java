@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tourism.strategy.tourism_strategy.adapter.AlbumAdapter;
@@ -36,12 +38,15 @@ public class AlbumActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
         ButterKnife.bind(this);
+        setTitle("图片集");
+        showDialog();
 
         count = getIntent().getIntExtra("count", 0);
         attractionId = getIntent().getIntExtra("attractionId", 0);
         totalPage = count / 10 + (count % 10 == 0 ? 0 : 1);
         recyclerview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         adapter = new AlbumAdapter(this, list);
+        adapter.setEmptyView(LayoutInflater.from(this).inflate(R.layout.view_empty,null));
         //分页加载
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
@@ -68,6 +73,8 @@ public class AlbumActivity extends BaseActivity {
                         list.addAll(albums);
                         adapter.notifyDataSetChanged();
                         adapter.loadMoreComplete();
+                        hideDialog();
+                        recyclerview.setVisibility(View.VISIBLE);
                     }
                 });}
     }

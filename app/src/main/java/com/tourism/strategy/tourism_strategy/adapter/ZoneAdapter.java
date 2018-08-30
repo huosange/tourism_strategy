@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tourism.strategy.tourism_strategy.R;
@@ -17,7 +18,7 @@ import com.tourism.strategy.tourism_strategy.model.Zone;
 
 import java.util.List;
 
-public class ZoneAdapter extends BaseQuickAdapter<Zone, BaseViewHolder>{
+public class ZoneAdapter extends BaseQuickAdapter<Zone, BaseViewHolder> {
 
     private Context context;
 
@@ -30,7 +31,8 @@ public class ZoneAdapter extends BaseQuickAdapter<Zone, BaseViewHolder>{
     protected void convert(BaseViewHolder helper, final Zone item) {
         helper.setText(R.id.name, item.getName_zh_cn() + item.getName_en());
         ImageView imageview = helper.getView(R.id.imageview);
-        Glide.with(context).load(item.getImage_url()).into(imageview);
+        RequestOptions options = new RequestOptions().error(R.mipmap.default_image);
+        Glide.with(context).load(item.getImage_url()).apply(options).into(imageview);
         TextView strategy = helper.getView(R.id.strategy);
         TextView trip = helper.getView(R.id.trip);
         TextView travel = helper.getView(R.id.travel);
@@ -38,25 +40,25 @@ public class ZoneAdapter extends BaseQuickAdapter<Zone, BaseViewHolder>{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, TravelListActivity.class);
-                intent.putExtra("cid",item.getId());
-                intent.putExtra("poi_count",item.getPoi_count());
+                intent.putExtra("cid", item.getId());
+                intent.putExtra("poi_count", item.getPoi_count());
                 context.startActivity(intent);
             }
         });
         trip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context, TripActivity.class);
-                intent.putExtra("cid",item.getId());
-                intent.putExtra("plans_count",item.getPlans_count());
+                Intent intent = new Intent(context, TripActivity.class);
+                intent.putExtra("cid", item.getId());
+                intent.putExtra("plans_count", item.getPlans_count());
                 context.startActivity(intent);
             }
         });
         strategy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context, StrategyActivity.class);
-                intent.putExtra("id",item.getId());
+                Intent intent = new Intent(context, StrategyActivity.class);
+                intent.putExtra("id", item.getId());
                 context.startActivity(intent);
             }
         });

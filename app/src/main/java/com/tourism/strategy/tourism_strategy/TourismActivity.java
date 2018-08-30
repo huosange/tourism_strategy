@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tourism.strategy.tourism_strategy.adapter.TourismAdapter;
@@ -36,12 +38,15 @@ public class TourismActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tourism);
         ButterKnife.bind(this);
+        setTitle("游记集");
+        showDialog();
 
         count = getIntent().getIntExtra("count", 0);
         totalPage = count / 10 + (count % 10 == 0 ? 0 : 1);
         attractionId = getIntent().getIntExtra("attractionId", 0);
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         adapter = new TourismAdapter(this, list);
+        adapter.setEmptyView(LayoutInflater.from(this).inflate(R.layout.view_empty,null));
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -67,6 +72,8 @@ public class TourismActivity extends BaseActivity {
                             list.addAll(attractionTrips.getAttraction_trips());
                             adapter.notifyDataSetChanged();
                             adapter.loadMoreComplete();
+                            hideDialog();
+                            recyclerview.setVisibility(View.VISIBLE);
                         }
                     });
         }

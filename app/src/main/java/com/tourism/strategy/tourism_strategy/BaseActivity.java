@@ -1,6 +1,8 @@
 package com.tourism.strategy.tourism_strategy;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.preference.DialogPreference;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -26,10 +28,10 @@ public class BaseActivity extends AppCompatActivity {
         super.setContentView(R.layout.activity_base);
         ImmersionBar.with(this).statusBarColor(R.color.status_bar_color).init();
         root = findViewById(R.id.root);
-        title=findViewById(R.id.title);
+        title = findViewById(R.id.title);
     }
 
-    public void setTitle(String t){
+    public void setTitle(String t) {
         title.setText(t);
     }
 
@@ -44,5 +46,24 @@ public class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ImmersionBar.with(this).destroy();
+    }
+
+    private Dialog progressDialog;
+
+    public void showDialog() {
+        progressDialog = new Dialog(this, R.style.progress_dialog);
+        progressDialog.setContentView(R.layout.dialog);
+        progressDialog.setCancelable(true);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        TextView msg = (TextView) progressDialog.findViewById(R.id.progressTextView);
+        msg.setText("卖力加载中");
+        progressDialog.show();
+    }
+
+    public void hideDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+            progressDialog = null;
+        }
     }
 }

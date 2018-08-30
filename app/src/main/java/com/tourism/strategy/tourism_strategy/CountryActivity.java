@@ -33,6 +33,7 @@ public class CountryActivity extends BaseActivity {
         setContentView(R.layout.activity_country);
         ButterKnife.bind(this);
         setTitle(getIntent().getStringExtra("name"));
+        showDialog();
 
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ZoneAdapter(this, list);
@@ -47,6 +48,7 @@ public class CountryActivity extends BaseActivity {
                     public void accept(List<Zone> zones) throws Exception {
                         list.addAll(zones);
                         adapter.notifyDataSetChanged();
+                        hideDialog();
                     }
                 });}
     }

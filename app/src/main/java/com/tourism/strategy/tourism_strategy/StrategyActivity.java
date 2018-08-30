@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import com.tourism.strategy.tourism_strategy.adapter.WikiAdapter;
 import com.tourism.strategy.tourism_strategy.model.Wiki;
@@ -15,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.bmob.v3.b.V;
 import io.reactivex.functions.Consumer;
 
 public class StrategyActivity extends BaseActivity {
@@ -32,9 +35,11 @@ public class StrategyActivity extends BaseActivity {
         setContentView(R.layout.activity_strategy);
         ButterKnife.bind(this);
         setTitle("攻略");
+        showDialog();
 
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         adapter = new WikiAdapter(this, list);
+        adapter.setEmptyView(LayoutInflater.from(this).inflate(R.layout.view_empty, null));
         recyclerview.setAdapter(adapter);
         id = getIntent().getIntExtra("id", 0);
 
@@ -52,6 +57,8 @@ public class StrategyActivity extends BaseActivity {
                                 }
                             }
                             adapter.notifyDataSetChanged();
+                            hideDialog();
+                            recyclerview.setVisibility(View.VISIBLE);
                         }
                     });
         }

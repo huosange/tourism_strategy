@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -42,6 +43,7 @@ public class TripActivity extends BaseActivity {
         setContentView(R.layout.activity_trip);
         ButterKnife.bind(this);
         setTitle("行程");
+        showDialog();
 
         cid = getIntent().getIntExtra("cid", 0);
         plans_count = getIntent().getIntExtra("plans_count", 0);
@@ -49,6 +51,7 @@ public class TripActivity extends BaseActivity {
 
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         adapter = new PlanAdapter(this, list);
+        adapter.setEmptyView(LayoutInflater.from(this).inflate(R.layout.view_empty, null));
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -82,6 +85,8 @@ public class TripActivity extends BaseActivity {
                             list.addAll(plans);
                             adapter.notifyDataSetChanged();
                             adapter.loadMoreComplete();
+                            hideDialog();
+                            recyclerview.setVisibility(View.VISIBLE);
                         }
                     });
         }
