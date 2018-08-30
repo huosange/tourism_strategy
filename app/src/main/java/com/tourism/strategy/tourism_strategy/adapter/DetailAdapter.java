@@ -84,6 +84,9 @@ public class DetailAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseV
                 photoTv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if(ad.getPhotos_count()==0){
+                            return;
+                        }
                         Intent intent = new Intent(context, AlbumActivity.class);
                         intent.putExtra("attractionId", ad.getId());
                         intent.putExtra("count", ad.getPhotos_count());
@@ -93,6 +96,9 @@ public class DetailAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseV
                 tourismTv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if(ad.getAttraction_trips_count()==0){
+                            return;
+                        }
                         Intent intent = new Intent(context, TourismActivity.class);
                         intent.putExtra("attractionId", ad.getId());
                         intent.putExtra("count", ad.getAttraction_trips_count());
