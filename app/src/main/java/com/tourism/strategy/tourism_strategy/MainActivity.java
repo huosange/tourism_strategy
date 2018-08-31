@@ -10,6 +10,7 @@ import com.tourism.strategy.tourism_strategy.adapter.CategoryAdapter;
 import com.tourism.strategy.tourism_strategy.model.Category;
 import com.tourism.strategy.tourism_strategy.net.ApiRetrofit;
 import com.tourism.strategy.tourism_strategy.utils.NetUtils;
+import com.tourism.strategy.tourism_strategy.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,5 +52,18 @@ public class MainActivity extends BaseActivity {
                         }
                     });
         }
+    }
+
+    private long mBackPressed;
+    private static final int TIME_INTERVAL = 2000;
+
+    @Override
+    public void onBackPressed() {
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) {
+            super.onBackPressed();
+        } else {
+            ToastUtil.showText(this, "再按一次退出应用");
+        }
+        mBackPressed = System.currentTimeMillis();
     }
 }
