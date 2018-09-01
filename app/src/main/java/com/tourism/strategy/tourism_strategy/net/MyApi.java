@@ -5,6 +5,7 @@ import com.tourism.strategy.tourism_strategy.model.Attraction;
 import com.tourism.strategy.tourism_strategy.model.AttractionDetail;
 import com.tourism.strategy.tourism_strategy.model.AttractionTrips;
 import com.tourism.strategy.tourism_strategy.model.Category;
+import com.tourism.strategy.tourism_strategy.model.HomeTrip;
 import com.tourism.strategy.tourism_strategy.model.Plan;
 import com.tourism.strategy.tourism_strategy.model.PlanDetail;
 import com.tourism.strategy.tourism_strategy.model.Wiki;
@@ -49,4 +50,7 @@ public interface MyApi {
 
     @GET("api/wiki/destinations/{id}.json")
     Observable<List<Wiki>> getWiki(@Path("id") int id);
+
+    @GET("api/trips/featured.json")
+    Observable<List<HomeTrip>> getHomeTrip(@Query("page") int page);
 }

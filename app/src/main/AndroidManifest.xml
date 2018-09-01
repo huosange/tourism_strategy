@@ -16,15 +16,19 @@
         <activity
             android:name=".SwitchActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/FullScreen">
-        </activity>
-        <activity android:name=".MainActivity">
+            android:theme="@style/FullScreen"></activity>
+
+        <activity
+            android:name=".FirstActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".MainActivity"></activity>
         <activity
             android:name=".CountryActivity"
             android:screenOrientation="portrait" />

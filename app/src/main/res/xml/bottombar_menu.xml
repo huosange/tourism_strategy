@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        barColorWhenSelected="#FF0C80E0"
+        icon="@mipmap/myouji_small"
+        id="@+id/tab_youji"
+        title="旅行游记" />
+    <tab
+        barColorWhenSelected="#FF0C80E0"
+        icon="@mipmap/mgonglue_small"
+        id="@+id/tab_gonglue"
+        title="旅游攻略" />
+    <tab
+        barColorWhenSelected="#FF0C80E0"
+        icon="@mipmap/mgongju_small"
+        id="@+id/tab_gongju"
+        title="工具包" />
+    <tab
+        barColorWhenSelected="#FF0C80E0"
+        icon="@mipmap/shezhi_small"
+        id="@+id/tab_shezhi"
+        title="系统设置" />
+</tabs>
