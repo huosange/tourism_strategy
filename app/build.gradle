@@ -48,4 +48,6 @@ dependencies {
     implementation 'cn.bmob.android:bmob-sdk:3.6.3'
     implementation 'cn.bmob.android:http-legacy:1.0'
     implementation 'com.roughike:bottom-bar:2.3.1'
+    implementation 'com.androidkun:XTabLayout:1.1.4'
+    implementation 'com.zaihuishou:expandablerecycleradapter:1.0.3'
 }

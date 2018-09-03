@@ -8,7 +8,9 @@ import com.tourism.strategy.tourism_strategy.model.Category;
 import com.tourism.strategy.tourism_strategy.model.HomeTrip;
 import com.tourism.strategy.tourism_strategy.model.Plan;
 import com.tourism.strategy.tourism_strategy.model.PlanDetail;
+import com.tourism.strategy.tourism_strategy.model.Weather;
 import com.tourism.strategy.tourism_strategy.model.Wiki;
+import com.tourism.strategy.tourism_strategy.model.WikiDestinations;
 import com.tourism.strategy.tourism_strategy.model.Zone;
 
 import java.util.List;
@@ -53,4 +55,18 @@ public interface MyApi {
 
     @GET("api/trips/featured.json")
     Observable<List<HomeTrip>> getHomeTrip(@Query("page") int page);
+
+    /**
+     * 目的地列表
+     * @return
+     */
+    @GET("api/wiki/destinations.json")
+    Observable<List<WikiDestinations>> getWikiDestinations();
+
+    /**
+     * 天气状况
+     * @return
+     */
+    @GET("api/wiki/destinations/infos/{id}.json")
+    Observable<Weather> getWikiWeather(@Path("id") int id);
 }

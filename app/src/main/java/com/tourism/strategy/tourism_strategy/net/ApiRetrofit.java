@@ -8,7 +8,9 @@ import com.tourism.strategy.tourism_strategy.model.Category;
 import com.tourism.strategy.tourism_strategy.model.HomeTrip;
 import com.tourism.strategy.tourism_strategy.model.Plan;
 import com.tourism.strategy.tourism_strategy.model.PlanDetail;
+import com.tourism.strategy.tourism_strategy.model.Weather;
 import com.tourism.strategy.tourism_strategy.model.Wiki;
+import com.tourism.strategy.tourism_strategy.model.WikiDestinations;
 import com.tourism.strategy.tourism_strategy.model.Zone;
 
 import java.util.List;
@@ -92,6 +94,14 @@ public class ApiRetrofit {
 
     public Observable<List<HomeTrip>> getHomeTrip(int page){
         return myApi.getHomeTrip(page);
+    }
+
+    public Observable<List<WikiDestinations>> getWikiDestinations(){
+        return myApi.getWikiDestinations();
+    }
+
+    public Observable<Weather> getWikiWeather(int id){
+        return myApi.getWikiWeather(id);
     }
 
 }
