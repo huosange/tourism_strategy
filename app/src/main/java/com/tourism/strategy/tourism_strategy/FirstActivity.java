@@ -1,5 +1,6 @@
 package com.tourism.strategy.tourism_strategy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -99,5 +100,4 @@ public class FirstActivity extends BaseActivity {
         }
         mBackPressed = System.currentTimeMillis();
     }
-
 }

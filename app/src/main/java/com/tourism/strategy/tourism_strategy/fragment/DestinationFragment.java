@@ -42,6 +42,7 @@ public class DestinationFragment extends Fragment {
             for (WikiDestinations.Destination.Child c : wd.getChildren()) {
                 MyChild m2 = new MyChild();
                 m2.name = c.getName_zh_cn();
+                m2.id=c.getId();
                 m2s.add(m2);
             }
             m.children = m2s;
@@ -71,7 +72,7 @@ public class DestinationFragment extends Fragment {
                     case ITEM_TYPE_PARENT:
                         return new ParentItem();
                     case ITEM_TYPE_CHILD:
-                        return new ChildItem();
+                        return new ChildItem(getActivity());
                 }
                 return null;
             }

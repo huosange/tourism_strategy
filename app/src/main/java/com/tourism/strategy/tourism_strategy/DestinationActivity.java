@@ -3,14 +3,11 @@ package com.tourism.strategy.tourism_strategy;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-
 import com.androidkun.xtablayout.XTabLayout;
 import com.tourism.strategy.tourism_strategy.adapter.MyViewPagerAdapter;
 import com.tourism.strategy.tourism_strategy.model.WikiDestinations;
 import com.tourism.strategy.tourism_strategy.net.ApiRetrofit;
 import com.tourism.strategy.tourism_strategy.utils.NetUtils;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

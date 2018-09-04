@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 27
@@ -50,4 +51,12 @@ dependencies {
     implementation 'com.roughike:bottom-bar:2.3.1'
     implementation 'com.androidkun:XTabLayout:1.1.4'
     implementation 'com.zaihuishou:expandablerecycleradapter:1.0.3'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    implementation 'org.greenrobot:greendao:3.2.2'
+}
+
+greendao{
+    schemaVersion 1
+    daoPackage 'com.tourism.strategy.tourism_strategy.greendao'
+    targetGenDir 'src/main/java'
 }

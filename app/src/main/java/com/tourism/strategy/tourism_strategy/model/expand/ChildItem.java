@@ -1,9 +1,12 @@
 package com.tourism.strategy.tourism_strategy.model.expand;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tourism.strategy.tourism_strategy.FirstActivity;
 import com.tourism.strategy.tourism_strategy.R;
 import com.tourism.strategy.tourism_strategy.model.WikiDestinations;
 import com.zaihuishou.expandablerecycleradapter.viewholder.AbstractExpandableAdapterItem;
@@ -11,6 +14,12 @@ import com.zaihuishou.expandablerecycleradapter.viewholder.AbstractExpandableAda
 public class ChildItem extends AbstractExpandableAdapterItem {
 
     private TextView name;
+    private Activity activity;
+    private MyChild m;
+
+    public ChildItem(Activity activity){
+        this.activity=activity;
+    }
 
     @Override
     public void onExpansionToggled(boolean expanded) {
@@ -27,7 +36,10 @@ public class ChildItem extends AbstractExpandableAdapterItem {
         root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //跳回到工具包fragment
+                Intent intent=new Intent();
+                intent.putExtra("id",m.id);
+                activity.setResult(3,intent);
+                activity.finish();
             }
         });
     }
@@ -40,7 +52,7 @@ public class ChildItem extends AbstractExpandableAdapterItem {
     @Override
     public void onUpdateViews(Object model, int position) {
         super.onUpdateViews(model, position);
-        MyChild m = (MyChild) model;
+        m = (MyChild) model;
         name.setText(m.name);
     }
 }
