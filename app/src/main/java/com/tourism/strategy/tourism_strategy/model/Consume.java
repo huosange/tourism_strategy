@@ -12,19 +12,23 @@ public class Consume {
     private String time;
     private double money;
     private String summary;
+    private String unit;
 
-    public Consume(String time, double money, String summary) {
+    public Consume(String time, double money, String summary,String unit) {
         this.time = time;
         this.money = money;
         this.summary = summary;
+        this.unit=unit;
     }
 
-    @Generated(hash = 1482020232)
-    public Consume(Long id, String time, double money, String summary) {
+    @Generated(hash = 1577464781)
+    public Consume(Long id, String time, double money, String summary,
+            String unit) {
         this.id = id;
         this.time = time;
         this.money = money;
         this.summary = summary;
+        this.unit = unit;
     }
 
     @Generated(hash = 836215753)
@@ -61,5 +65,13 @@ public class Consume {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUnit() {
+        return this.unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

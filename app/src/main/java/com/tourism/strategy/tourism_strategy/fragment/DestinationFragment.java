@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.tourism.strategy.tourism_strategy.R;
 import com.tourism.strategy.tourism_strategy.model.WikiDestinations;
 import com.tourism.strategy.tourism_strategy.model.expand.ChildItem;
@@ -17,8 +18,10 @@ import com.tourism.strategy.tourism_strategy.model.expand.MyParent;
 import com.tourism.strategy.tourism_strategy.model.expand.ParentItem;
 import com.zaihuishou.expandablerecycleradapter.adapter.BaseExpandableAdapter;
 import com.zaihuishou.expandablerecycleradapter.viewholder.AbstractAdapterItem;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -42,7 +45,8 @@ public class DestinationFragment extends Fragment {
             for (WikiDestinations.Destination.Child c : wd.getChildren()) {
                 MyChild m2 = new MyChild();
                 m2.name = c.getName_zh_cn();
-                m2.id=c.getId();
+                m2.id = c.getId();
+                m2.image_url = c.getImage_url();
                 m2s.add(m2);
             }
             m.children = m2s;

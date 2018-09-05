@@ -7,13 +7,16 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tourism.strategy.tourism_strategy.ConsumeListActivity;
 import com.tourism.strategy.tourism_strategy.DestinationActivity;
@@ -25,7 +28,9 @@ import com.tourism.strategy.tourism_strategy.model.Money;
 import com.tourism.strategy.tourism_strategy.model.Weather;
 import com.tourism.strategy.tourism_strategy.net.ApiRetrofit;
 import com.tourism.strategy.tourism_strategy.utils.NetUtils;
+import com.tourism.strategy.tourism_strategy.utils.ToastUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,10 +49,20 @@ public class ToolsFragment extends Fragment implements View.OnClickListener {
     public Button address;
     @BindView(R.id.total)
     public FrameLayout total;
+    @BindView(R.id.add)
+    public Button add;
+    @BindView(R.id.edittext1)
+    public EditText edittext1;
+    @BindView(R.id.edittext2)
+    public EditText edittext2;
+    @BindView(R.id.myBg)
+    public ImageView myBg;
 
     private List<Money> list = new ArrayList<>();
     private MoneyAdapter adapter;
     public static final int REQUEST_CODE = 1;
+    public SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
+    private Weather mWeather;
 
     @Nullable
     @Override
@@ -55,8 +70,10 @@ public class ToolsFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_tools, null);
         ButterKnife.bind(this, view);
         initMoney();
+        getWikiWeather(14);//默认是澳门
         address.setOnClickListener(this);
         total.setOnClickListener(this);
+        add.setOnClickListener(this);
         recyclerview.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         adapter = new MoneyAdapter(getActivity(), list);
 
@@ -66,10 +83,6 @@ public class ToolsFragment extends Fragment implements View.OnClickListener {
             }
         });
         recyclerview.setAdapter(adapter);
-
-        List<Consume> ll=EntityManager.getInstance().getConsumeDao().queryBuilder().list();
-        Consume consume=new Consume("2000年01月01号",120,"暂无");
-        EntityManager.getInstance().getConsumeDao().insert(consume);
 
         return view;
     }
@@ -107,7 +120,37 @@ public class ToolsFragment extends Fragment implements View.OnClickListener {
             case R.id.total:
                 startActivity(new Intent(getActivity(), ConsumeListActivity.class));
                 break;
+            case R.id.add:
+                String s1 = edittext1.getText().toString();
+                String summary = edittext2.getText().toString();
+                if (TextUtils.isEmpty(s1)) {
+                    ToastUtil.showText(getActivity(), "消费金额不能为空！");
+                    return;
+                }
+
+                try {
+                    double money = Double.parseDouble(s1);
+                    Consume consume = new Consume(sdf.format(System.currentTimeMillis()), money, summary, mWeather.getCurrency_display());
+                    EntityManager.getInstance().getConsumeDao().insert(consume);
+                    edittext1.setText("");
+                    edittext2.setText("");
+                } catch (Exception e) {
+                    ToastUtil.showText(getActivity(), "请输入正确的金额！");
+                }
+                break;
         }
+    }
+
+    private void getWikiWeather(int id) {
+        ApiRetrofit.getInstance().getWikiWeather(id)
+                .compose(NetUtils.<Weather>io_main())
+                .subscribe(new Consumer<Weather>() {
+                    @Override
+                    public void accept(Weather weather) throws Exception {
+                        mWeather = weather;
+                        Glide.with(getActivity()).load("http://m.chanyouji.cn/destinations/14-landscape.jpg").into(myBg);
+                    }
+                });
     }
 
     @Override
@@ -115,13 +158,16 @@ public class ToolsFragment extends Fragment implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 3) {
             if (requestCode == REQUEST_CODE) {
-                int id = data.getIntExtra("id", 0);
+                final int id = data.getIntExtra("id", 0);
                 ApiRetrofit.getInstance().getWikiWeather(id)
                         .compose(NetUtils.<Weather>io_main())
                         .subscribe(new Consumer<Weather>() {
                             @Override
                             public void accept(Weather weather) throws Exception {
-                                address.setText(weather.getTemp_min()+"~~"+weather.getTemp_max());
+                                mWeather = weather;
+                                address.setText(weather.getTemp_min() + "~~" + weather.getTemp_max());
+                                //自己拼凑图片url
+                                Glide.with(getActivity()).load("http://m.chanyouji.cn/destinations/" + id + "-landscape.jpg").into(myBg);
                             }
                         });
             }

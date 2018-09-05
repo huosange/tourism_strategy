@@ -51,7 +51,7 @@ public class ConsumeListActivity extends BaseActivity {
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
 
         for (int i = 0; i < 5; i++) {
-            Consume consume = new Consume("2018年09月04号 17:38", 100.3, "和朋友去ktv，顺带啤酒小龙虾");
+            Consume consume = new Consume("2018年09月04号 17:38", 100.3, "和朋友去ktv，顺带啤酒小龙虾","");
             list.add(consume);
         }
         ConsumeAdapter adapter = new ConsumeAdapter(list);

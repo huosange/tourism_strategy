@@ -28,6 +28,7 @@ public class ConsumeDao extends AbstractDao<Consume, Long> {
         public final static Property Time = new Property(1, String.class, "time", false, "TIME");
         public final static Property Money = new Property(2, double.class, "money", false, "MONEY");
         public final static Property Summary = new Property(3, String.class, "summary", false, "SUMMARY");
+        public final static Property Unit = new Property(4, String.class, "unit", false, "UNIT");
     }
 
 
@@ -46,7 +47,8 @@ public class ConsumeDao extends AbstractDao<Consume, Long> {
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"TIME\" TEXT," + // 1: time
                 "\"MONEY\" REAL NOT NULL ," + // 2: money
-                "\"SUMMARY\" TEXT);"); // 3: summary
+                "\"SUMMARY\" TEXT," + // 3: summary
+                "\"UNIT\" TEXT);"); // 4: unit
     }
 
     /** Drops the underlying database table. */
@@ -74,6 +76,11 @@ public class ConsumeDao extends AbstractDao<Consume, Long> {
         if (summary != null) {
             stmt.bindString(4, summary);
         }
+ 
+        String unit = entity.getUnit();
+        if (unit != null) {
+            stmt.bindString(5, unit);
+        }
     }
 
     @Override
@@ -95,6 +102,11 @@ public class ConsumeDao extends AbstractDao<Consume, Long> {
         if (summary != null) {
             stmt.bindString(4, summary);
         }
+ 
+        String unit = entity.getUnit();
+        if (unit != null) {
+            stmt.bindString(5, unit);
+        }
     }
 
     @Override
@@ -108,7 +120,8 @@ public class ConsumeDao extends AbstractDao<Consume, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // time
             cursor.getDouble(offset + 2), // money
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // summary
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // summary
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // unit
         );
         return entity;
     }
@@ -119,6 +132,7 @@ public class ConsumeDao extends AbstractDao<Consume, Long> {
         entity.setTime(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setMoney(cursor.getDouble(offset + 2));
         entity.setSummary(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setUnit(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
      }
     
     @Override

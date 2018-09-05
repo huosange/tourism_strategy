@@ -38,6 +38,7 @@ public class ChildItem extends AbstractExpandableAdapterItem {
             public void onClick(View v) {
                 Intent intent=new Intent();
                 intent.putExtra("id",m.id);
+                intent.putExtra("url",m.image_url);
                 activity.setResult(3,intent);
                 activity.finish();
             }
