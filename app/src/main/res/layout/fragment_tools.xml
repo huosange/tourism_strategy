@@ -16,7 +16,7 @@
             <ImageView
                 android:id="@+id/myBg"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="240dp"
                 android:scaleType="centerCrop" />
 
             <RelativeLayout
@@ -28,6 +28,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="地点" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/low"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FF148DEB"
+                        android:textSize="32dp" />
+
+                    <View
+                        android:id="@+id/line"
+                        android:layout_width="20dp"
+                        android:layout_height="3dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="#FFC8C9C7" />
+
+                    <TextView
+                        android:id="@+id/high"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFEC3C24"
+                        android:textSize="32dp" />
+                </LinearLayout>
             </RelativeLayout>
         </FrameLayout>
 

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -57,6 +58,10 @@ public class ToolsFragment extends Fragment implements View.OnClickListener {
     public EditText edittext2;
     @BindView(R.id.myBg)
     public ImageView myBg;
+    @BindView(R.id.low)
+    public TextView low;
+    @BindView(R.id.high)
+    public TextView high;
 
     private List<Money> list = new ArrayList<>();
     private MoneyAdapter adapter;
@@ -148,6 +153,8 @@ public class ToolsFragment extends Fragment implements View.OnClickListener {
                     @Override
                     public void accept(Weather weather) throws Exception {
                         mWeather = weather;
+                        low.setText(mWeather.getTemp_min()+"℃");
+                        high.setText(mWeather.getTemp_max()+"℃");
                         Glide.with(getActivity()).load("http://m.chanyouji.cn/destinations/14-landscape.jpg").into(myBg);
                     }
                 });
