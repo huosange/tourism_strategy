@@ -17,6 +17,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.tourism.strategy.tourism_strategy.adapter.ConsumeAdapter;
+import com.tourism.strategy.tourism_strategy.greendao.manager.EntityManager;
 import com.tourism.strategy.tourism_strategy.model.Consume;
 import com.tourism.strategy.tourism_strategy.model.WikiDestinations;
 
@@ -50,9 +51,9 @@ public class ConsumeListActivity extends BaseActivity {
 
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
 
-        for (int i = 0; i < 5; i++) {
-            Consume consume = new Consume("2018年09月04号 17:38", 100.3, "和朋友去ktv，顺带啤酒小龙虾","");
-            list.add(consume);
+        List<Consume> consumes = EntityManager.getInstance().getConsumeDao().queryBuilder().list();
+        if (consumes != null && consumes.size() > 0) {
+            list.addAll(consumes);
         }
         ConsumeAdapter adapter = new ConsumeAdapter(list);
         recyclerview.setAdapter(adapter);

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,13 +29,13 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         inflater = LayoutInflater.from(this);
         super.setContentView(R.layout.activity_base);
-        ImmersionBar.with(this).statusBarColor(R.color.status_bar_color).init();
+        ImmersionBar.with(this).statusBarColor(R.color.status_bar_color).keyboardEnable(true, WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN|WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN).init();
         root = findViewById(R.id.root);
         title = findViewById(R.id.title);
-        titlebar=findViewById(R.id.titlebar);
+        titlebar = findViewById(R.id.titlebar);
     }
 
-    public void hideTitle(){
+    public void hideTitle() {
         titlebar.setVisibility(View.GONE);
     }
 

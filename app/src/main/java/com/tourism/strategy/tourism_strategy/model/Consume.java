@@ -13,22 +13,25 @@ public class Consume {
     private double money;
     private String summary;
     private String unit;
+    private int type;//消费类型
 
-    public Consume(String time, double money, String summary,String unit) {
+    public Consume(String time, double money, String summary,String unit,int type) {
         this.time = time;
         this.money = money;
         this.summary = summary;
         this.unit=unit;
+        this.type=type;
     }
 
-    @Generated(hash = 1577464781)
-    public Consume(Long id, String time, double money, String summary,
-            String unit) {
+    @Generated(hash = 1989501651)
+    public Consume(Long id, String time, double money, String summary, String unit,
+            int type) {
         this.id = id;
         this.time = time;
         this.money = money;
         this.summary = summary;
         this.unit = unit;
+        this.type = type;
     }
 
     @Generated(hash = 836215753)
@@ -73,5 +76,13 @@ public class Consume {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    public int getType() {
+        return this.type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

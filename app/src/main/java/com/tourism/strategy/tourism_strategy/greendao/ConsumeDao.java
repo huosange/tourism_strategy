@@ -29,6 +29,7 @@ public class ConsumeDao extends AbstractDao<Consume, Long> {
         public final static Property Money = new Property(2, double.class, "money", false, "MONEY");
         public final static Property Summary = new Property(3, String.class, "summary", false, "SUMMARY");
         public final static Property Unit = new Property(4, String.class, "unit", false, "UNIT");
+        public final static Property Type = new Property(5, int.class, "type", false, "TYPE");
     }
 
 
@@ -48,7 +49,8 @@ public class ConsumeDao extends AbstractDao<Consume, Long> {
                 "\"TIME\" TEXT," + // 1: time
                 "\"MONEY\" REAL NOT NULL ," + // 2: money
                 "\"SUMMARY\" TEXT," + // 3: summary
-                "\"UNIT\" TEXT);"); // 4: unit
+                "\"UNIT\" TEXT," + // 4: unit
+                "\"TYPE\" INTEGER NOT NULL );"); // 5: type
     }
 
     /** Drops the underlying database table. */
@@ -81,6 +83,7 @@ public class ConsumeDao extends AbstractDao<Consume, Long> {
         if (unit != null) {
             stmt.bindString(5, unit);
         }
+        stmt.bindLong(6, entity.getType());
     }
 
     @Override
@@ -107,6 +110,7 @@ public class ConsumeDao extends AbstractDao<Consume, Long> {
         if (unit != null) {
             stmt.bindString(5, unit);
         }
+        stmt.bindLong(6, entity.getType());
     }
 
     @Override
@@ -121,7 +125,8 @@ public class ConsumeDao extends AbstractDao<Consume, Long> {
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // time
             cursor.getDouble(offset + 2), // money
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // summary
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // unit
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // unit
+            cursor.getInt(offset + 5) // type
         );
         return entity;
     }
@@ -133,6 +138,7 @@ public class ConsumeDao extends AbstractDao<Consume, Long> {
         entity.setMoney(cursor.getDouble(offset + 2));
         entity.setSummary(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setUnit(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setType(cursor.getInt(offset + 5));
      }
     
     @Override

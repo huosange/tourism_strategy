@@ -2,6 +2,7 @@ package com.tourism.strategy.tourism_strategy.model;
 
 import com.zaihuishou.expandablerecycleradapter.model.ExpandableListItem;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class WikiDestinations {
@@ -71,7 +72,7 @@ public class WikiDestinations {
             this.children = children;
         }
 
-        public class Child {
+        public class Child{
             private int id;
             private String name_zh_cn;
             private String name_en;

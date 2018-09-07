@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:overScrollMode="never">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,13 +24,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <Button
+                <TextView
                     android:id="@+id/address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="地点" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@mipmap/weizhi"
+                    android:drawablePadding="8dp"
+                    android:text="地点"
+                    android:textColor="#ffffff"
+                    android:textSize="18dp" />
 
                 <LinearLayout
+                    android:id="@+id/wendu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -58,72 +66,203 @@
                         android:textColor="#FFEC3C24"
                         android:textSize="32dp" />
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/wendu"
+                    android:layout_marginRight="40dp"
+                    android:textColor="#ffffff"
+                    android:textSize="16dp" />
             </RelativeLayout>
         </FrameLayout>
 
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview"
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:overScrollMode="never" />
+            android:padding="10dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+            <TableRow android:padding="10dp">
+
+                <TextView
+                    android:text="消费金额"
+                    android:textColor="#666666"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edittext1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="未填写"
+                        android:textColor="#666666"
+                        android:textColorHint="#999999"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#666666"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+            </TableRow>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:background="#e2e2e2" />
+
+            <TableRow android:padding="10dp">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="消费类型"
+                    android:textSize="15dp" />
+
+                <com.tourism.strategy.tourism_strategy.widget.MyRadioGroup
+                    android:id="@+id/myRadioGroup"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rb1"
+                            style="@style/MyRadioGroup_RadioButton"
+                            android:text="其他" />
+
+                        <RadioButton
+                            android:id="@+id/rb2"
+                            style="@style/MyRadioGroup_RadioButton"
+                            android:text="交通" />
+
+                        <RadioButton
+                            android:id="@+id/rb3"
+                            style="@style/MyRadioGroup_RadioButton"
+                            android:text="餐饮" />
+
+                        <RadioButton
+                            android:id="@+id/rb4"
+                            style="@style/MyRadioGroup_RadioButton"
+                            android:text="住宿" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rb5"
+                            style="@style/MyRadioGroup_RadioButton"
+                            android:text="门票" />
+
+                        <RadioButton
+                            android:id="@+id/rb6"
+                            style="@style/MyRadioGroup_RadioButton"
+                            android:text="购物" />
+
+                        <RadioButton
+                            android:id="@+id/rb7"
+                            style="@style/MyRadioGroup_RadioButton"
+                            android:text="娱乐" />
+
+                        <RadioButton
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:button="@null"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:visibility="invisible" />
+
+                    </LinearLayout>
+
+                </com.tourism.strategy.tourism_strategy.widget.MyRadioGroup>
+            </TableRow>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:background="#e2e2e2" />
+
+            <TableRow android:padding="10dp">
+
+                <TextView
+                    android:text="消费明细"
+                    android:textColor="#666666"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/edittext2"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="未填写"
+                    android:textColor="#666666"
+                    android:textColorHint="#999999"
+                    android:textSize="14dp" />
+            </TableRow>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:background="#e2e2e2" />
+
+        </TableLayout>
+
+        <TextView
+            android:id="@+id/add"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_gravity="center_horizontal"
+            android:background="@color/status_bar_color"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="添一笔"
+            android:textColor="#ffffff"
+            android:textSize="15dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="消费金额" />
-
-            <EditText
-                android:id="@+id/edittext1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="请输入消费金额"
-                android:inputType="number" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="消费明细" />
-
-            <EditText
-                android:id="@+id/edittext2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="未填写" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+            android:layout_height="1dp"
+            android:layout_margin="10dp"
+            android:background="#e2e2e2" />
 
         <FrameLayout
             android:id="@+id/total"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:padding="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="全部消费" />
+                android:text="全部消费"
+                android:textColor="#666666"
+                android:textSize="15dp" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -131,16 +270,6 @@
                 android:layout_gravity="right|center_vertical"
                 android:background="@mipmap/right_go" />
         </FrameLayout>
-
-        <Button
-            android:id="@+id/add"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@color/status_bar_color"
-            android:text="添一笔"
-            android:textColor="#ffffff"
-            android:textSize="16dp" />
 
     </LinearLayout>
 

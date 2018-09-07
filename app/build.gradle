@@ -56,7 +56,7 @@ dependencies {
 }
 
 greendao{
-    schemaVersion 1
+    schemaVersion 3
     daoPackage 'com.tourism.strategy.tourism_strategy.greendao'
     targetGenDir 'src/main/java'
 }
