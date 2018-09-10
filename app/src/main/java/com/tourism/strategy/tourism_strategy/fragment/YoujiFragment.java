@@ -1,5 +1,6 @@
 package com.tourism.strategy.tourism_strategy.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,7 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.tourism.strategy.tourism_strategy.FirstActivity;
+import com.tourism.strategy.tourism_strategy.HomeTripDetailActivity;
 import com.tourism.strategy.tourism_strategy.R;
 import com.tourism.strategy.tourism_strategy.adapter.HomeTripAdapter;
 import com.tourism.strategy.tourism_strategy.model.HomeTrip;
@@ -30,7 +35,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 游记Fragment
  */
-public class YoujiFragment extends BaseFragment {
+public class YoujiFragment extends BaseFragment implements View.OnClickListener {
 
     @BindView(R.id.recyclerview)
     public RecyclerView recyclerview;
@@ -50,6 +55,13 @@ public class YoujiFragment extends BaseFragment {
         adapter = new HomeTripAdapter(getActivity(), list);
         adapter.addHeaderView(getBannerHeader());
         adapter.addHeaderView(getButtonHeader());
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(getActivity(), HomeTripDetailActivity.class);
+                startActivity(intent);
+            }
+        });
         recyclerview.setAdapter(adapter);
         ApiRetrofit.getInstance().getHomeTrip(1)
                 .compose(NetUtils.<List<HomeTrip>>io_main())
@@ -78,6 +90,28 @@ public class YoujiFragment extends BaseFragment {
 
     public View getButtonHeader() {
         View view = myInflater.inflate(R.layout.youji_header_button, null);
+        TextView textview1 = view.findViewById(R.id.textview1);
+        TextView textview2 = view.findViewById(R.id.textview2);
+        TextView textview3 = view.findViewById(R.id.textview3);
+        textview1.setOnClickListener(this);
+        textview2.setOnClickListener(this);
+        textview3.setOnClickListener(this);
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        FirstActivity activity = (FirstActivity) getActivity();
+        switch (v.getId()) {
+            case R.id.textview1:
+                activity.bottomBar.setDefaultTab(R.id.tab_gonglue);
+                break;
+            case R.id.textview2:
+                activity.bottomBar.setDefaultTab(R.id.tab_gongju);
+                break;
+            case R.id.textview3:
+                activity.bottomBar.setDefaultTab(R.id.tab_gongju);
+                break;
+        }
     }
 }

@@ -15,6 +15,7 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.tourism.strategy.tourism_strategy.adapter.ConsumeAdapter;
 import com.tourism.strategy.tourism_strategy.greendao.manager.EntityManager;
@@ -38,9 +39,10 @@ public class ConsumeListActivity extends BaseActivity {
     @BindView(R.id.recyclerview)
     public RecyclerView recyclerview;
 
-    private String[] stars = new String[]{"交通", "餐饮", "住宿", "门票", "娱乐"};
+    private String[] stars = new String[]{"交通", "餐饮", "住宿", "门票", "购物", "娱乐", "其他"};
     private List<Integer> colors = new ArrayList<>();
     private List<Consume> list = new ArrayList<>();
+    private float[] values = new float[7];
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,16 +64,44 @@ public class ConsumeListActivity extends BaseActivity {
         colors.add(Color.parseColor("#FFFD7467"));
         colors.add(Color.parseColor("#FF4DA0F8"));
         colors.add(Color.parseColor("#FF43DB5D"));
+        colors.add(Color.parseColor("#FF7030A1"));
+        colors.add(Color.parseColor("#FF6AF8C3"));
 
+        pieChart.setRotationEnabled(false);
         pieChart.setDrawHoleEnabled(false);
-        List<PieEntry> list = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            PieEntry entry = new PieEntry(i + 1, stars[i]);
-            list.add(entry);
+
+        for (Consume consume : list) {
+            switch (consume.getType()) {
+                case 0:
+                    values[0] += consume.getMoney();
+                    break;
+                case 1:
+                    values[1] += consume.getMoney();
+                    break;
+                case 2:
+                    values[2] += consume.getMoney();
+                    break;
+                case 3:
+                    values[3] += consume.getMoney();
+                    break;
+                case 4:
+                    values[4] += consume.getMoney();
+                    break;
+                case 5:
+                    values[5] += consume.getMoney();
+                    break;
+                case 6:
+                    values[6] += consume.getMoney();
+                    break;
+            }
         }
-        PieDataSet pieDataSet = new PieDataSet(list, "");
-        colors.add(Color.parseColor("#f17548"));
-        colors.add(Color.parseColor("#FF9933"));
+
+        List<PieEntry> temp = new ArrayList<>();
+        for (int i = 0; i < values.length; i++) {
+            PieEntry entry = new PieEntry(values[i], stars[i]);
+            temp.add(entry);
+        }
+        PieDataSet pieDataSet = new PieDataSet(temp, "");
         pieDataSet.setValueTextColor(Color.parseColor("#ffffff"));
         pieDataSet.setValueTextSize(13);
         pieDataSet.setColors(colors);
@@ -97,6 +127,10 @@ public class ConsumeListActivity extends BaseActivity {
 
         @Override
         public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+            if (value < 5) {
+                //小于5%，则不显示文字
+                return "";
+            }
             return mFormat.format(value) + "%";
         }
     }

@@ -6,6 +6,7 @@ import com.tourism.strategy.tourism_strategy.model.AttractionDetail;
 import com.tourism.strategy.tourism_strategy.model.AttractionTrips;
 import com.tourism.strategy.tourism_strategy.model.Category;
 import com.tourism.strategy.tourism_strategy.model.HomeTrip;
+import com.tourism.strategy.tourism_strategy.model.HomeTripDetail;
 import com.tourism.strategy.tourism_strategy.model.Plan;
 import com.tourism.strategy.tourism_strategy.model.PlanDetail;
 import com.tourism.strategy.tourism_strategy.model.Weather;
@@ -69,4 +70,7 @@ public interface MyApi {
      */
     @GET("api/wiki/destinations/infos/{id}.json")
     Observable<Weather> getWikiWeather(@Path("id") int id);
+
+    @GET("api/trips/{id}.json")
+    Observable<HomeTripDetail> getHomeTripDetail(@Path("id") int id);
 }

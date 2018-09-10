@@ -66,6 +66,9 @@
         <activity
             android:name=".ConsumeListActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".HomeTripDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

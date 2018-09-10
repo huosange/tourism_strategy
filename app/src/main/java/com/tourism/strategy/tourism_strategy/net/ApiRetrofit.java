@@ -6,6 +6,7 @@ import com.tourism.strategy.tourism_strategy.model.AttractionDetail;
 import com.tourism.strategy.tourism_strategy.model.AttractionTrips;
 import com.tourism.strategy.tourism_strategy.model.Category;
 import com.tourism.strategy.tourism_strategy.model.HomeTrip;
+import com.tourism.strategy.tourism_strategy.model.HomeTripDetail;
 import com.tourism.strategy.tourism_strategy.model.Plan;
 import com.tourism.strategy.tourism_strategy.model.PlanDetail;
 import com.tourism.strategy.tourism_strategy.model.Weather;
@@ -102,6 +103,10 @@ public class ApiRetrofit {
 
     public Observable<Weather> getWikiWeather(int id){
         return myApi.getWikiWeather(id);
+    }
+
+    public Observable<HomeTripDetail> getHomeTripDetail(int id){
+        return myApi.getHomeTripDetail(id);
     }
 
 }
